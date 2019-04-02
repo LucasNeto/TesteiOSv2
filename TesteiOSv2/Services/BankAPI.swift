@@ -2,7 +2,7 @@
 //  BankAPI.swift
 //  TesteiOSv2
 //
-//  Created by Capgemini on 23/02/2019.
+//  Created by Lucas Santana on 23/02/2019.
 //  Copyright © 2019 Lucas. All rights reserved.
 //
 import Foundation

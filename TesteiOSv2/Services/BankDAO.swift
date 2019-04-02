@@ -2,7 +2,7 @@
 //  BankDAO.swift
 //  TesteiOSv2
 //
-//  Created by Capgemini on 26/02/2019.
+//  Created by Lucas Santana on 26/02/2019.
 //  Copyright © 2019 Lucas. All rights reserved.
 //
 import UIKit

@@ -2,7 +2,7 @@
 //  LoginPresenter.swift
 //  TesteiOSv2
 //
-//  Created by Capgemini on 22/02/2019.
+//  Created by Lucas Santana on 22/02/2019.
 //  Copyright © 2019 Lucas. All rights reserved.
 //
 
