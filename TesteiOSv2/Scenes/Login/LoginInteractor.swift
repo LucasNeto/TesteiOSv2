@@ -14,8 +14,7 @@ protocol LoginBusinessLogic {
     func lastLogin() -> String?
 }
 
-protocol LoginDataStore
-{
+protocol LoginDataStore {
     var user: User! { get set }
 }
 class LoginInteractor : LoginBusinessLogic , LoginDataStore{
