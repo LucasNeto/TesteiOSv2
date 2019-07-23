@@ -1,5 +1,5 @@
 //
-//  BankWorker.swift
+//  BaseWorker.swift
 //  TesteiOSv2
 //
 //  Created by Lucas Santana on 22/02/2019.
@@ -7,48 +7,11 @@
 //
 import Foundation
 
-class BankWorker {
+class BaseWorker {
     
-    var bankProtocol : BankProtocol
+    var URL_SERVER : String { return "https://bank-app-test.herokuapp.com/api" }
     
-    init(bank : BankProtocol) {
-        self.bankProtocol = bank
-    }
-    
-    
-    //    func requestUser(completionHandler: @escaping (User?) -> Void) {
-    //        bankProtocol.requestUser { (user, error) in
-    //            if error != nil {
-    //                completionHandler(user)
-    //            }else{
-    //                completionHandler(nil)
-    //            }
-    //        }
-    //    }
-}
-
-
-protocol BankProtocol {
-    func requestUser(_ request : FetchUsers.UserFormFields,
-                     completionHandler: @escaping (User?, String?) -> Void)
-    
-    func requestStatements(_ request : ListStatements.FetchStatements.Request,
-                           completionHandler: @escaping ([Statement]) -> Void)
-}
-
-
-
-
-
-
-
-
-// MARK: Utils
-protocol BankUtilityProtocol {}
-
-extension BankUtilityProtocol {
-    
-    func request(url: URL,body:Data?, method: URLMethod, completionHandler: @escaping (Bool,String) -> Void){
+    func doRequest(url: URL,body:Data?, method: URLMethod, completionHandler: @escaping (Bool,String) -> Void){
         var request = URLRequest(url: url)
         
         request.httpMethod = method.rawValue
@@ -56,7 +19,7 @@ extension BankUtilityProtocol {
             request.httpBody = body
         }
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            print("URL:\(method) \(url)\nERRO:\(error)")
+            print("URL:\(method) \(url)\nERRO:\(String(describing: error))")
             if let error = error {
                 completionHandler(false,error.localizedDescription)
             }else{

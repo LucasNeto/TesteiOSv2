@@ -19,7 +19,7 @@ protocol StatementsDataStore {
 class StatementsInteractor : StatementsBusinessLogic, StatementsDataStore {
     var user: User!
     
-    var worker : BankProtocol?
+    var worker : StatementsWorker?
     var presenter: StatementsPresentationLogic?
     
     func listStatements(request: ListStatements.FetchStatements.Request) {
