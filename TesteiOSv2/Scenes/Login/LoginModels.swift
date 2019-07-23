@@ -13,8 +13,8 @@ enum FetchUsers {
     struct UserFormFields {
         var user: String
         var password: String
-        func getData() -> Data? {
-            return "user=\(user)&password=\(password)".data(using: .utf8)
+        func getBody() -> String {
+            return "user=\(user)&password=\(password)"
         }
     }
     

@@ -19,17 +19,19 @@ protocol LoginDataStore
     var user: User! { get set }
 }
 class LoginInteractor : LoginBusinessLogic , LoginDataStore{
-    func lastLogin() -> String? {
-        return self.fetchLastUserLogged()
-    }
+    
     
     var user: User!
     
     var presenter: LoginPresentationLogic?
-    var worker : BankProtocol?
+    var worker : LoginWorker?
     
     func login(request: FetchUsers.FetchUsers.Request) {
         self.requestUser(userFields: request.userFormFields)
+    }
+    
+    func lastLogin() -> String? {
+        return self.fetchLastUserLogged()
     }
  
     private func requestUser(userFields: FetchUsers.UserFormFields) {
@@ -77,10 +79,10 @@ class LoginInteractor : LoginBusinessLogic , LoginDataStore{
         return true
     }
     private func saveUser(_ login : String){
-        BankDAO.save(login)
+        worker?.save(login)
     }
     
     private func fetchLastUserLogged() -> String? {
-        return BankDAO.get()
+        return worker?.get()
     }
 }

@@ -14,25 +14,17 @@ protocol StatementsDisplayLogic: class {
 
 class StatementsViewController: UITableViewController, StatementsDisplayLogic {
     
-    func displayFetchedStatements(viewModel: ListStatements.FetchStatements.ViewModel) {
-        
-        headerUserView?.setUserData(user: viewModel.userDisplayed)
-        
-        self.listStatements = viewModel.statementsDisplayed
-        self.tableView.reloadData()
-    }
-    
     var interactor: StatementsBusinessLogic?
     var router : (NSObjectProtocol & StatementsRoutingLogic & StatementsDataPassing)?
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-    {
+    //MARK: Life cycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder)
-    {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -50,7 +42,7 @@ class StatementsViewController: UITableViewController, StatementsDisplayLogic {
         let router = StatementsRouter()
         viewController.interactor = interactor
         viewController.router = router
-        interactor.worker = BankAPI()
+        interactor.worker = StatementsWorker()
         interactor.presenter = presenter
         presenter.viewController = viewController
         router.viewController = viewController
@@ -58,6 +50,16 @@ class StatementsViewController: UITableViewController, StatementsDisplayLogic {
         
         headerUserView = LNSUserInfoView.instanceFromNib() as? LNSUserInfoView
         headerUserView?.delegate = self
+    }
+    
+    // MARK: StatementsDisplayLogic
+    
+    func displayFetchedStatements(viewModel: ListStatements.FetchStatements.ViewModel) {
+        
+        headerUserView?.setUserData(user: viewModel.userDisplayed)
+        
+        self.listStatements = viewModel.statementsDisplayed
+        self.tableView.reloadData()
     }
     
     private func fetchStatements(){
@@ -70,6 +72,12 @@ class StatementsViewController: UITableViewController, StatementsDisplayLogic {
     var listStatements: [ListStatements.FetchStatements.ViewModel.StatementDisplayed] = []
     
     var headerUserView: LNSUserInfoView?
+    
+    
+}
+
+//MARK: TableViewDelegate and TableViewDataSource
+extension StatementsViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listStatements.count
@@ -96,6 +104,8 @@ class StatementsViewController: UITableViewController, StatementsDisplayLogic {
         return 100.0
     }
 }
+
+
 extension StatementsViewController : UserInfoViewDelegate {
     func logoutTapped() {
         print("logout")

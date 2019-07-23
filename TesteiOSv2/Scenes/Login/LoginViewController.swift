@@ -62,7 +62,7 @@ class LoginViewController: UIViewController , LoginDisplayLogic {
         let router = LoginRouter()
         viewController.interactor = interactor
         viewController.router = router
-        interactor.worker = BankAPI()
+        interactor.worker = LoginWorker()
         interactor.presenter = presenter
         presenter.viewController = viewController
         router.viewController = viewController
@@ -96,10 +96,10 @@ class LoginViewController: UIViewController , LoginDisplayLogic {
         
         
     }
-    private func enableButton(_ enable : Bool){
+    private func enableButton(_ enable: Bool){
         loginButton.isEnabled = enable
     }
-    private func loading(_ shouldLoading :Bool){
+    private func loading(_ shouldLoading: Bool){
         enableButton(!shouldLoading)
         if shouldLoading {
             loadingIndicator?.startAnimating()
